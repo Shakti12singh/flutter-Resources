@@ -1,0 +1,150 @@
+import 'package:chapter2/home_screen.dart';
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: HomeScreen(),
+    );
+  }
+}
+
+// from Here we have a home page Ui OF NEXT Page....
+
+import 'package:flutter/material.dart';
+
+class HomeScreen extends StatefulWidget {
+  static const String id = 'home_screen';
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'WhatsApp',
+            style: TextStyle(color: Colors.white),
+          ),
+          backgroundColor: Colors.teal,
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                child: Icon(
+                  Icons.camera_alt,
+                  color: Colors.white,
+                ),
+              ),
+              Tab(
+                  child: Text(
+                'Chats',
+                style: TextStyle(color: Colors.white),
+              )),
+              Tab(
+                  child: Text(
+                'Status',
+                style: TextStyle(color: Colors.white),
+              )),
+              Tab(
+                  child: Text(
+                'Call',
+                style: TextStyle(color: Colors.white),
+              )),
+            ],
+            indicatorColor: Colors.white,
+            // Change the color of the indicator
+          ),
+          actions: [
+            Icon(
+              Icons.search,
+              color: Colors.white,
+            ),
+            SizedBox(
+              width: 7,
+            ),
+            PopupMenuButton(
+              icon: Icon(
+                Icons.more_vert,
+                color: Colors.white,
+              ),
+              itemBuilder: (
+                context,
+              ) =>
+                  [
+                PopupMenuItem(
+                  value: 1,
+                  child: Text('New Group'),
+                ),
+                PopupMenuItem(
+                  value: 2,
+                  child: Text('Settings'),
+                ),
+                PopupMenuItem(
+                  value: 3,
+                  child: Text('LogOut'),
+                ),
+              ],
+            ),
+          ],
+        ),
+        body: TabBarView(
+          children: [
+            Text('camera'),
+            ListView.builder(
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                    backgroundImage: AssetImage('assets/download.jpg'),
+                  ),
+                  title: Text('Shakti'),
+                  subtitle: Text('Aja bhai pubg.'),
+                  trailing: Text('9:20 pm'),
+                );
+              },
+            ),
+            ListView.builder(
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/download.jpg'),
+                    ),
+                    title: Text('Shakti'),
+                    subtitle: Text('5 minutes ago'),
+                  );
+                }),
+            ListView.builder(
+                itemCount: 20,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: CircleAvatar(
+                      backgroundImage: AssetImage('assets/download.jpg'),
+                    ),
+                    title: Text('Shakti'),
+                    subtitle: Text('You Missed Calls'),
+                    trailing: Icon(Icons.phone),
+                  );
+                }),
+          ],
+        ),
+      ),
+    );
+  }
+}
