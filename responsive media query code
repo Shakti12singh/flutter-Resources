@@ -1,0 +1,41 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx/screen_one.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 1 ;
+    final width = MediaQuery.of(context).size.width * 1 ;
+
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Getx'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
+              height: height*.2,
+              color: Colors.red,
+              child: Center(
+                child: Text('center'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
