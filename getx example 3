@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx/example_controller.dart';
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  ExampleController exampleController = Get.put(ExampleController());
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 1;
+    final width = MediaQuery.of(context).size.width * 1;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Getx'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text('Notification'),
+                Obx(
+                  () => Switch(
+                      value: exampleController.notification.value,
+                      onChanged: (value) {
+                        exampleController.setNotification(value);
+                      }),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+import 'package:get/get.dart';
+
+class ExampleController extends GetxController{
+
+  RxBool notification = false.obs;
+
+  setNotification(bool value){
+    notification.value = value ;
+  }
+
+}
