@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx/counter_controller.dart';
+
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  final CounterController controller = Get.put(CounterController());
+
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 1 ;
+    final width = MediaQuery.of(context).size.width * 1 ;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Getx'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(child: Obx((){
+              return Text(controller.counter.toString() , style: TextStyle(fontSize: 50),);
+            })
+
+
+            ),
+          ],
+        ),
+      ),
+    floatingActionButton:  FloatingActionButton(
+        onPressed: (){
+          controller.incrementCounter();
+        },
+      ),
+    );
+  }
+}
+
+
