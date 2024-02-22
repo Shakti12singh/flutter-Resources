@@ -1,0 +1,58 @@
+import 'package:getx/example_two.dart';
+
+
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  ExampleTwoController exampleTwoController = Get.put(ExampleTwoController());
+
+  @override
+  Widget build(BuildContext context) {
+    print('kripa');
+    final height = MediaQuery.of(context).size.height * 1 ;
+    final width = MediaQuery.of(context).size.width * 1 ;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Getx'),
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Obx(() => Container(
+              height: height*.3,
+              width: width*.5,
+              color: Colors.red.withOpacity(exampleTwoController.opacity.value),
+            ),),
+            Obx(() =>    Slider(value: exampleTwoController.opacity.value, onChanged: (value){
+              exampleTwoController.setOpacity(value);
+
+            }),
+            ),
+
+
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+import 'package:get/get.dart';
+
+class ExampleTwoController extends GetxController {
+
+  RxDouble opacity = .4.obs ;
+
+  setOpacity(double value){
+    opacity.value = value ;
+  }
+}
