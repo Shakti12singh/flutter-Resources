@@ -1,0 +1,68 @@
+import 'dart:io';
+
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:getx/image_picker_controller.dart';
+
+
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
+  ImagePickerController controller = Get.put(ImagePickerController());
+
+  @override
+  Widget build(BuildContext context) {
+    final height = MediaQuery.of(context).size.height * 1;
+    final width = MediaQuery.of(context).size.width * 1;
+
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Getx'),
+      ),
+      body:   Obx((){
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: CircleAvatar(
+                radius: 60,
+                backgroundImage: controller.imagePath.isNotEmpty ?
+                FileImage(File(controller.imagePath.toString())) :
+                    null
+              ),
+            ),
+            TextButton(onPressed: (){
+              controller.getImage();
+            },
+                child: Text('Pick Image'))
+          ],
+        );
+      })
+    );
+  }
+}
+
+
+
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+
+class ImagePickerController extends GetxController{
+
+  RxString imagePath = ''.obs ;
+  Future getImage()async{
+    final ImagePicker _picker = ImagePicker();
+    final image = await _picker.pickImage(source: ImageSource.gallery);
+    if(image != null){
+      imagePath.value = image.path.toString() ;
+    }
+  }
+}
